@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ORATOSS Industrial AI Transformation for Textile & Carpet Manufacturing</title>
+<style>
+:root{
+  --bg:#061018;--panel:#0d1b24;--panel2:#112735;--card:#10212c;--line:rgba(255,255,255,.11);
+  --text:#eef7f8;--muted:#a9bdc4;--muted2:#7f98a2;
+  --cyan:#58dfff;--teal:#62e6ca;--amber:#ffc66d;--rose:#ff8198;--violet:#ad95ff;--blue:#76aaff;--lime:#c8f36f;
+  --good:#85efb5;--warn:#ffd27e;--bad:#ff96a7;--shadow:0 24px 70px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;color:var(--text);background:
+    radial-gradient(900px 520px at 100% -12%,rgba(88,223,255,.12),transparent 64%),
+    radial-gradient(780px 520px at 0% 108%,rgba(173,149,255,.08),transparent 60%),
+    linear-gradient(180deg,#061018,#091620 48%,#061018);
+  font-family:"Segoe UI",Tahoma,Arial,sans-serif;overflow:hidden;letter-spacing:-.01em;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.15;background-image:
+  repeating-linear-gradient(90deg,transparent 0 72px,rgba(255,255,255,.02) 73px 74px),
+  repeating-linear-gradient(0deg,transparent 0 72px,rgba(255,255,255,.015) 73px 74px);
+  mask-image:linear-gradient(#000,rgba(0,0,0,.25));
+}
+button,input{font:inherit}
+a{color:var(--cyan);text-decoration:none}
+.app{height:100vh;display:grid;grid-template-columns:305px 1fr;gap:16px;padding:16px}
+.sidebar{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(13,27,36,.96),rgba(7,16,23,.94));box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;position:relative}
+.sidebar:after{content:"";position:absolute;left:-80px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(88,223,255,.16),transparent 70%);filter:blur(18px)}
+.brand{padding:18px;border-bottom:1px solid var(--line);display:flex;gap:13px;align-items:center;position:relative;z-index:1}
+.logo{width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#152b3a,#071820);border:1px solid rgba(88,223,255,.22);display:grid;place-items:center;position:relative;overflow:hidden}
+.logo:before,.logo:after{content:"";position:absolute;width:29px;height:29px;border:2px solid var(--cyan);border-radius:50%;opacity:.78}.logo:before{transform:translateX(7px)}.logo:after{transform:translateX(-7px);border-color:var(--amber)}
+.logo b{position:relative;font-size:10px;letter-spacing:.08em}
+.brand h1{font-size:17px;margin:0 0 2px}.brand p{margin:0;color:var(--muted);font-size:11px;line-height:1.7}
+.brief{padding:14px 16px 8px}.briefbox{padding:13px;border-radius:18px;border:1px solid rgba(88,223,255,.14);background:linear-gradient(135deg,rgba(88,223,255,.08),rgba(173,149,255,.05))}
+.briefbox .ey{font-size:10px;color:var(--cyan);font-weight:900;letter-spacing:.08em}.briefbox h3{font-size:14px;margin:5px 0}.briefbox p{font-size:12px;line-height:1.8;color:var(--muted);margin:0}
+.progress{margin-top:10px;display:grid;gap:5px}.progress small{font-size:10px;color:#88a2ab}.bar{height:7px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--teal));border-radius:999px;transition:.25s}
+.menu{display:grid;gap:7px;padding:10px 12px 14px;overflow:auto}.menu::-webkit-scrollbar{width:6px}.menu::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:999px}
+.navbtn{display:grid;grid-template-columns:34px 1fr;gap:9px;align-items:center;border:1px solid transparent;border-radius:16px;background:transparent;color:#dce8eb;padding:10px 12px;text-align:right;cursor:pointer;transition:.2s}
+.navbtn .num{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.05);font-size:11px;font-weight:800}.navbtn b{font-size:13px;display:block}.navbtn span:last-child{font-size:10.5px;color:#91a9b1}.navbtn.active{border-color:rgba(88,223,255,.18);background:linear-gradient(90deg,rgba(88,223,255,.12),rgba(255,255,255,.025));transform:translateX(-1px)}
+.sidefoot{margin-top:auto;border-top:1px solid var(--line);padding:13px 17px;color:#879da6;font-size:11px;line-height:1.8;position:relative;z-index:1}.sidefoot b{color:#d9e5e8}
+.stage{position:relative;border:1px solid var(--line);border-radius:30px;background:rgba(7,16,23,.82);box-shadow:var(--shadow);overflow:hidden}
+.topbar{position:absolute;inset:0 0 auto 0;height:58px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;z-index:4;background:linear-gradient(180deg,rgba(6,14,20,.88),rgba(6,14,20,.42));backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.07)}
+.topbar .title{font-size:13px;color:#c8d8dc}.topbar .title b{color:white}.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);border-radius:999px;padding:8px 12px;font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+.slides{position:absolute;inset:58px 0 0 0}
+.slide{position:absolute;inset:0;display:none;opacity:0;transform:translateY(12px);overflow:auto;padding:28px 34px 95px;transition:.24s;background:radial-gradient(650px 350px at 100% 0%,rgba(88,223,255,.08),transparent 72%)}
+.slide.active{display:block;opacity:1;transform:none}.slide::-webkit-scrollbar{width:8px}.slide::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:999px}
+.slidehead{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}.kicker{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase}.kicker:before{content:"";width:30px;height:2px;background:currentColor;border-radius:999px}
+h2{font-size:clamp(28px,2.45vw,42px);line-height:1.44;margin:7px 0 7px;letter-spacing:-.04em}.lead{font-size:16px;line-height:1.95;color:#bfd0d6;margin:0;max-width:980px}.pagechip{white-space:nowrap;border:1px solid rgba(255,255,255,.10);border-radius:999px;background:rgba(255,255,255,.04);font-size:11px;color:#d9e7ea;padding:8px 12px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{position:relative;border:1px solid rgba(255,255,255,.095);border-radius:22px;background:linear-gradient(160deg,rgba(17,33,43,.88),rgba(8,19,27,.82));padding:16px;box-shadow:0 10px 24px rgba(0,0,0,.13);overflow:hidden}
+.card:after{content:"";position:absolute;inset:auto -20% -45% auto;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(88,223,255,.075),transparent 62%);pointer-events:none}
+.card h3{font-size:18px;margin:9px 0 7px}.card p,.card li{font-size:13.5px;line-height:1.85;color:#b5c8ce}.card p{margin:0}.card ul{margin:8px 0 0;padding-right:18px}.mini{font-size:11px;color:#8aa2ab}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 9px;font-size:10px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);color:#dce8eb}.bench{border-color:rgba(118,170,255,.25);color:#cfe0ff;background:rgba(118,170,255,.10)}.scenario{border-color:rgba(255,198,109,.28);color:#ffe2b2;background:rgba(255,198,109,.10)}.pilot{border-color:rgba(98,230,202,.28);color:#d9fff5;background:rgba(98,230,202,.10)}
+.ico{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);font-size:14px;font-weight:900;color:var(--cyan);letter-spacing:.05em}
+.hero{display:grid;grid-template-columns:1.06fr .94fr;gap:30px;min-height:calc(100vh - 165px);align-items:center}.hero h2{font-size:clamp(38px,3vw,56px)}.hero .lead{font-size:18px}.statement{margin-top:16px;padding:14px 16px;border-radius:18px;border:1px solid rgba(88,223,255,.15);background:rgba(88,223,255,.06);font-size:14.5px;line-height:1.9;color:#d5e7eb}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.primary,.secondary{border-radius:14px;padding:12px 16px;font-size:13px;font-weight:800;border:none;cursor:pointer}.primary{background:linear-gradient(135deg,var(--cyan),#92ecff);color:#031117}.secondary{background:rgba(255,255,255,.05);color:#edf6f7;border:1px solid rgba(255,255,255,.11)}
+.visual{height:500px;border:1px solid rgba(255,255,255,.09);border-radius:30px;background:linear-gradient(150deg,rgba(17,36,48,.90),rgba(8,18,26,.86));position:relative;overflow:hidden}.visual:before{content:"";position:absolute;inset:0;opacity:.14;background-image:linear-gradient(90deg,transparent 48%,#fff 49%,transparent 50%),linear-gradient(0deg,transparent 48%,#fff 49%,transparent 50%);background-size:26px 26px}.spool{position:absolute;top:70px;right:66px;width:140px;height:140px;border-radius:50%;border:15px solid rgba(255,255,255,.10);box-shadow:inset 0 0 0 8px rgba(98,230,202,.16)}.spool:before{content:"";position:absolute;inset:34px;border-radius:50%;border:10px solid rgba(255,198,109,.35)}.thread{position:absolute;height:4px;border-radius:999px;right:55px;animation:flow 5.5s ease-in-out infinite}.t1{top:164px;width:300px;background:linear-gradient(90deg,var(--cyan),transparent)}.t2{top:245px;width:380px;right:112px;background:linear-gradient(90deg,var(--teal),transparent);animation-delay:.5s}.t3{top:322px;width:310px;background:linear-gradient(90deg,var(--amber),transparent);animation-delay:1s}@keyframes flow{0%,100%{transform:translateX(0)}50%{transform:translateX(-20px)}}
+.float{position:absolute;left:30px;padding:13px 15px;border-radius:17px;border:1px solid rgba(255,255,255,.09);background:rgba(8,18,25,.82);backdrop-filter:blur(10px);min-width:200px;animation:float 6s ease-in-out infinite}.float b{display:block;font-size:15px}.float span{font-size:12.5px;color:#a9bec5;line-height:1.8}.f1{top:72px}.f2{top:220px;left:55px;animation-delay:.8s}.f3{bottom:36px;left:88px;animation-delay:1.5s}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.click{cursor:pointer;transition:.2s}.click:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.18)}.click .cta{margin-top:13px;display:inline-flex;border-radius:12px;background:rgba(88,223,255,.12);color:#def9ff;border:1px solid rgba(88,223,255,.18);padding:8px 10px;font-size:12px;font-weight:800}
+.three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.pillset{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.textile-kpi{font-size:30px;font-weight:900;line-height:1.2}.now-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}.priority{display:grid;gap:10px}.priority .row{display:grid;grid-template-columns:88px 1fr 1fr;gap:10px;align-items:stretch}.cell{padding:13px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.75;color:#c5d6db}.cell b{display:block;color:white;font-size:14px;margin-bottom:4px}
+.svgchart{width:100%;height:210px}.barlist{display:grid;gap:10px}.barrow{display:grid;grid-template-columns:130px 1fr 55px;gap:10px;align-items:center;font-size:12.5px;color:#d8e5e8}.track{height:10px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--teal))}
+.matrix{height:430px;position:relative;border-radius:22px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);overflow:hidden}.axisx,.axisy{position:absolute;background:rgba(255,255,255,.14)}.axisx{left:45px;right:35px;bottom:54px;height:1px}.axisy{right:70px;top:35px;bottom:55px;width:1px}.quad{position:absolute;color:#8fa8b1;font-size:12px}.q1{right:78px;top:36px}.q2{left:42px;top:36px}.q3{right:78px;bottom:23px}.q4{left:42px;bottom:23px}.bubble{position:absolute;border-radius:20px;padding:10px 12px;text-align:center;border:1px solid rgba(255,255,255,.12);background:rgba(9,20,28,.88);font-size:12px;line-height:1.4;box-shadow:0 12px 30px rgba(0,0,0,.24);cursor:pointer}.bubble b{display:block;font-size:10px;color:var(--teal);margin-top:2px}.b-demand{right:180px;top:74px}.b-margin{right:145px;top:190px}.b-sales{right:340px;top:126px}.b-quality{left:190px;top:84px}.b-maint{left:225px;top:205px}.b-cash{right:350px;bottom:96px}.b-energy{left:120px;bottom:100px}.b-knowledge{right:155px;bottom:86px}
+.step-tabs{display:grid;grid-template-columns:290px 1fr;gap:14px}.tabs{display:grid;gap:8px}.tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:#e2eef0;border-radius:16px;padding:11px 12px;text-align:right;cursor:pointer}.tab b{display:block;font-size:13px}.tab span{font-size:11px;color:#9db3bb}.tab.active{border-color:rgba(173,149,255,.25);background:linear-gradient(90deg,rgba(173,149,255,.14),rgba(255,255,255,.025))}
+.fin-grid{display:grid;grid-template-columns:340px 1fr;gap:14px}.controls{display:grid;gap:9px}.control{padding:11px 12px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}.control label{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#d8e5e8;margin-bottom:8px}.control b{color:white}input[type=range]{width:100%;accent-color:#58dfff}.result-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.result{border-radius:18px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);padding:13px}.result span{display:block;font-size:11.5px;color:#9fb5bd;margin-bottom:7px}.result b{font-size:25px;line-height:1.2}.formula{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.formula .card{padding:12px}.formula h4{font-size:13px;margin:0 0 6px}.formula code{direction:ltr;display:block;background:rgba(0,0,0,.24);padding:8px;border-radius:10px;font-size:11px;color:#d5eef5;line-height:1.5;text-align:left}
+.flow{display:grid;grid-template-columns:1fr 65px 1fr 65px 1fr;gap:8px;align-items:center}.flow .arrow{height:4px;border-radius:999px;background:linear-gradient(90deg,rgba(88,223,255,.15),rgba(88,223,255,.8),rgba(88,223,255,.15));position:relative;overflow:hidden}.flow .arrow:before{content:"";position:absolute;left:-25%;top:0;bottom:0;width:25%;background:linear-gradient(90deg,transparent,#fff,transparent);animation:run 2.3s infinite linear}@keyframes run{to{left:120%}}
+.arch{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch}.arch .node{border-radius:18px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);padding:13px;text-align:center}.arch .node b{display:block;font-size:14px;margin-bottom:6px}.arch .node span{font-size:11.5px;color:#a9bec5;line-height:1.6}.footer-nav{position:absolute;right:330px;left:24px;bottom:18px;z-index:8;display:flex;justify-content:space-between;align-items:center;pointer-events:none}.footer-nav button{pointer-events:auto;border:1px solid rgba(255,255,255,.12);background:rgba(8,18,25,.82);backdrop-filter:blur(10px);color:white;border-radius:999px;padding:10px 15px;font-size:13px;font-weight:800;cursor:pointer}.footer-nav .hint{font-size:11px;color:#9fb5bd;background:rgba(8,18,25,.55);border:1px solid rgba(255,255,255,.08);padding:8px 12px;border-radius:999px}
+.scrollhint{position:absolute;bottom:70px;left:28px;z-index:5;background:rgba(8,18,25,.72);border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:7px 10px;font-size:10.5px;color:#b8cbd1;display:none}.slide.hasmore ~ .scrollhint{display:block}
+.modal{position:fixed;inset:0;background:rgba(3,8,12,.76);backdrop-filter:blur(12px);z-index:50;display:none;overflow:auto;padding:24px}.modal.open{display:block}.modal-card{max-width:1180px;margin:0 auto;max-height:calc(100vh - 48px);overflow:auto;border:1px solid rgba(255,255,255,.12);border-radius:26px;background:linear-gradient(180deg,rgba(13,25,34,.98),rgba(7,16,23,.98));box-shadow:0 28px 90px rgba(0,0,0,.48);padding:22px}.modal-card::-webkit-scrollbar{width:8px}.modal-card::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:999px}.close{position:sticky;top:0;float:left;width:42px;height:42px;border:none;border-radius:14px;background:rgba(255,255,255,.06);color:white;font-size:22px;cursor:pointer;z-index:2}
+.modal-head{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;align-items:center;clear:both}.modal-head h2{font-size:34px}.modal-viz{min-height:230px;border-radius:22px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(150deg,rgba(17,36,48,.9),rgba(8,18,26,.86));position:relative;overflow:hidden}.modal-viz:before{content:"";position:absolute;inset:0;opacity:.14;background-image:linear-gradient(90deg,transparent 48%,#fff 49%,transparent 50%),linear-gradient(0deg,transparent 48%,#fff 49%,transparent 50%);background-size:26px 26px}.modal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.modal-section{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:18px;padding:14px}.modal-section h4{font-size:15px;margin:0 0 7px}.modal-section ul{margin:0;padding-right:18px}.modal-section li{font-size:13.5px;line-height:1.9;color:#c4d5da}.viz-svg{position:absolute;inset:0;width:100%;height:100%}
+@media (max-width:1450px){.app{grid-template-columns:270px 1fr}.footer-nav{right:294px}.g4,.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.three-col,.problemgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.arch{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:1000px){body{overflow:auto}.app{display:block;height:auto;padding:10px}.sidebar{display:none}.stage{height:100vh}.footer-nav{right:18px}.hero,.now-grid,.step-tabs,.fin-grid,.modal-head,.modal-grid,.flow{grid-template-columns:1fr}.flow .arrow{width:4px;height:32px;margin:auto}.g2,.g3,.g4,.result-grid,.three-col,.arch,.formula{grid-template-columns:1fr}.slide{padding:22px 18px 96px}.topbar{padding:0 16px}.pagechip{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo"><b>ORATOSS</b></div><div><h1>ORATOSS Industrial AI</h1><p>Textile & Carpet Manufacturing<br/>Executive transformation blueprint</p></div></div>
+  <div class="brief"><div class="briefbox"><div class="ey">CLIENT-FACING DECK</div><h3>هدف: زیان کمتر، تولید مؤثرتر، فروش هوشمندتر</h3><p>این فایل برای تصمیم‌سازی مدیریتی طراحی شده است: مسئله، داده لازم، اقدام AI، اثر مالی و مسیر اجرا.</p><div class="progress"><small>پیشرفت ارائه</small><div class="bar"><span id="progress"></span></div></div></div></div>
+  <div class="menu" id="menu"></div>
+  <div class="sidefoot"><b>کنترل ارائه</b><br/>از دکمه‌های قبلی/بعدی پایین صفحه، کلیدهای ←/→ یا منوی سمت راست استفاده کنید. صفحات بلند با اسکرول کامل نمایش داده می‌شوند.</div>
+</aside>
+<main class="stage">
+  <div class="topbar"><div class="title">تهیه‌کننده: <b>تیم اوراتوس</b> · Industrial AI Transformation</div><div class="pill"><span class="dot"></span><span id="pageText">صفحه 01 / 12</span></div></div>
+  <div class="slides" id="slides">
+
+<section class="slide active" data-title="شروع جلسه" data-subtitle="Executive Opening">
+  <div class="hero">
+    <div>
+      <div class="kicker">ORATOSS · Industrial AI</div>
+      <h2>هوش مصنوعی برای کارخانه فرش و نساجی یعنی:<br/><span style="color:var(--cyan)">زیان کمتر، تولید مؤثرتر، فروش هوشمندتر.</span></h2>
+      <p class="lead">مسئله اصلی معمولاً نبود هوش مصنوعی نیست؛ مسئله این است که فروش، سود، موجودی، کیفیت، خرابی ماشین و نقدینگی به‌صورت یک زنجیره تصمیم دیده نمی‌شوند. این Blueprint نشان می‌دهد AI و Advanced Analytics چگونه این زنجیره را قابل اقدام می‌کنند.</p>
+      <div class="statement">سناریوی نمونه: یک کارخانه فرش/نساجی با فروش نوسانی، تصمیم‌گیری تجربی، موجودی سنگین، ضایعات، توقف ناگهانی ماشین و فشار نقدینگی. هدف فاز اول، اثبات ارزش با داده واقعی و دامنه کنترل‌شده است.</div>
+      <div class="pillset"><span class="badge">Pilot-first</span><span class="badge">Human-in-the-loop</span><span class="badge">Measured ROI</span><span class="badge">No AI Theater</span></div>
+      <div class="actions"><button class="primary" onclick="go(1)">AI دقیقاً چه کار می‌کند؟</button><button class="secondary" onclick="go(2)">رفتن به داشبورد مدیرعامل</button></div>
+    </div>
+    <div class="visual"><div class="spool"></div><div class="thread t1"></div><div class="thread t2"></div><div class="thread t3"></div><div class="float f1"><b>Profit Leak</b><span>سود واقعی SKU، مشتری و سفارش آشکار می‌شود.</span></div><div class="float f2"><b>Quality Signal</b><span>عیب نزدیک محل ایجاد دیده و به علت عملیاتی وصل می‌شود.</span></div><div class="float f3"><b>Sales Action</b><span>فروشنده هر روز لیست اقدام اولویت‌دار می‌گیرد.</span></div></div>
+  </div>
+</section>
+
+<section class="slide" data-title="AI چه می‌کند؟" data-subtitle="Capability Map">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--teal)">Capability Map</div><h2>AI دقیقاً در کدام نقطه‌های کارخانه اثر می‌گذارد؟</h2><p class="lead">قابلیت‌ها در سه خانواده دسته‌بندی شده‌اند تا بار شناختی کمتر شود: درآمد بیشتر، زیان کمتر، ظرفیت بیشتر. هر کارت قابل کلیک است و صفحه جزئیات اجرایی دارد.</p></div><span class="pagechip">صفحه 02 · Capability Map</span></div>
+  <div class="three-col">
+    <div class="card"><div class="ico">REV</div><h3>درآمد بیشتر</h3><ul><li>CRM و فروش هوشمند</li><li>Next Best Action برای فروشنده</li><li>Pricing / Margin Guardrail</li><li>پیش‌بینی تقاضا برای طرح، رنگ و سایز</li></ul><div class="pillset"><span class="badge pilot">Pilot Target</span><span class="badge bench">Benchmark-based</span></div></div>
+    <div class="card"><div class="ico">LOSS</div><h3>زیان کمتر</h3><ul><li>کاهش ضایعات و دوباره‌کاری</li><li>کاهش موجودی کندگردش</li><li>پایش نقدینگی و سرمایه در گردش</li><li>تحلیل مصرف انرژی نسبت به تولید</li></ul><div class="pillset"><span class="badge scenario">Scenario Assumption</span><span class="badge pilot">Pilot Target</span></div></div>
+    <div class="card"><div class="ico">CAP</div><h3>ظرفیت بیشتر</h3><ul><li>ریسک پیش‌خرابی ماشین‌ها</li><li>OEE و توقف‌های ناخواسته</li><li>Factory Memory و حفظ دانش افراد</li><li>Control Tower مدیریتی</li></ul><div class="pillset"><span class="badge">Human-in-the-loop</span><span class="badge">Action Loop</span></div></div>
+  </div>
+  <div class="grid g4" style="margin-top:14px">
+    <div class="card click" onclick="openCase('sales')"><div class="ico">CRM</div><h3>فروش و CRM</h3><p>کدام مشتری، چه محصولی، چه زمانی، با چه پیشنهاد؟</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('demand')"><div class="ico">DEM</div><h3>تقاضا و موجودی</h3><p>پیش‌بینی تقاضا و اصلاح برنامه تولید.</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('quality')"><div class="ico">VIS</div><h3>کیفیت و ضایعات</h3><p>تشخیص زودهنگام عیب و ریشه‌یابی.</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('maintenance')"><div class="ico">MNT</div><h3>ماشین و توقف</h3><p>ریسک خرابی و پنجره سرویس.</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('margin')"><div class="ico">MRG</div><h3>حاشیه سود</h3><p>سود واقعی در سطح SKU و سفارش.</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('cash')"><div class="ico">CASH</div><h3>نقدینگی</h3><p>Cash Gap و تصمیم تولید/خرید.</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('energy')"><div class="ico">KWH</div><h3>انرژی</h3><p>مصرف انرژی نسبت به m² تولید.</p><span class="cta">جزئیات</span></div>
+    <div class="card click" onclick="openCase('knowledge')"><div class="ico">MEM</div><h3>حافظه کارخانه</h3><p>حفظ تجربه عملیاتی و فروش.</p><span class="cta">جزئیات</span></div>
+  </div>
+</section>
+
+<section class="slide" data-title="داشبورد مدیرعامل" data-subtitle="NOW → WHY → NEXT">
+  <div class="slidehead"><div><div class="kicker">CEO Cockpit</div><h2>در ۳ ثانیه اول: الان چه مشکلی داریم، چرا، و تصمیم بعدی چیست؟</h2><p class="lead">داشبورد مدیرعامل نباید فقط عدد نشان دهد؛ باید «NOW → WHY → NEXT» را روی سود، تولید، کیفیت، فروش و نقدینگی روشن کند.</p></div><span class="pagechip">صفحه 03 · Executive Cockpit</span></div>
+  <div class="now-grid">
+    <div class="card">
+      <div class="kicker" style="font-size:11px;color:var(--rose)">NOW · Executive Alerts</div>
+      <div class="priority" style="margin-top:12px">
+        <div class="row"><div class="cell"><b>Margin</b><span style="color:var(--bad)">−4.8%</span></div><div class="cell"><b>WHY</b>دو SKU پرفروش بعد از تخفیف و مرجوعی سود منفی دارند.</div><div class="cell"><b>NEXT</b>بازنگری قیمت/تخفیف قبل از سفارش بعدی</div></div>
+        <div class="row"><div class="cell"><b>Inventory</b><span style="color:var(--warn)">18.6B</span></div><div class="cell"><b>WHY</b>Forecast با برنامه تولید ۶ SKU کندگردش هم‌خوان نیست.</div><div class="cell"><b>NEXT</b>کاهش Batch و توقف خرید مواد مربوط</div></div>
+        <div class="row"><div class="cell"><b>Machine</b><span style="color:var(--bad)">Risk 82%</span></div><div class="cell"><b>WHY</b>Drift لرزش/دما مشابه خرابی ماه قبل است.</div><div class="cell"><b>NEXT</b>بازرسی در شیفت امشب و آماده‌سازی قطعه</div></div>
+        <div class="row"><div class="cell"><b>Sales</b><span style="color:var(--warn)">12 مشتری</span></div><div class="cell"><b>WHY</b>فاصله سفارش و کاهش تعامل نشانگر ریزش است.</div><div class="cell"><b>NEXT</b>لیست تماس اولویت‌دار با پیشنهاد محصول</div></div>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><span class="mini">Contribution Margin / m²</span><div class="textile-kpi">−3.1%</div><p>شاخص مخصوص فرش/نساجی؛ سود در سطح مترمربع تولید.</p></div>
+      <div class="card"><span class="mini">Effective m² / hour</span><div class="textile-kpi">68%</div><p>ظرفیت مؤثر پس از توقف، ضایعات و تنظیم خط.</p></div>
+      <div class="card"><span class="mini">Waste / m²</span><div class="textile-kpi">7.4%</div><p>ضایعات و دوباره‌کاری نسبت به خروجی قابل فروش.</p></div>
+      <div class="card"><span class="mini">Inventory Aging</span><div class="textile-kpi">34 SKU</div><p>طرح/رنگ/سایز کندگردش با سرمایه قفل‌شده.</p></div>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><div class="kicker" style="font-size:11px">Sales × Margin</div><svg class="svgchart" viewBox="0 0 760 230"><defs><linearGradient id="area1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#58dfff" stop-opacity=".28"/><stop offset="1" stop-color="#58dfff" stop-opacity="0"/></linearGradient></defs><g stroke="rgba(255,255,255,.07)"><line x1="30" y1="45" x2="730" y2="45"/><line x1="30" y1="100" x2="730" y2="100"/><line x1="30" y1="155" x2="730" y2="155"/></g><path d="M30 172 C110 150,145 104,210 120 S330 188,402 128 S520 98,585 112 S675 126,730 72 L730 220 L30 220 Z" fill="url(#area1)"/><path d="M30 172 C110 150,145 104,210 120 S330 188,402 128 S520 98,585 112 S675 126,730 72" fill="none" stroke="#58dfff" stroke-width="4"/><path d="M30 196 C120 184,178 172,242 166 S355 145,430 151 S560 143,630 118 S695 100,730 105" fill="none" stroke="#ffc66d" stroke-width="4" stroke-dasharray="10 8"/></svg></div>
+    <div class="card"><div class="kicker" style="font-size:11px">Quality / Downtime / OTIF</div><div class="barlist"><div class="barrow"><span>Grade A / First Quality</span><div class="track"><div class="fill" style="width:78%"></div></div><b>78%</b></div><div class="barrow"><span>OEE خط منتخب</span><div class="track"><div class="fill" style="width:67%"></div></div><b>67%</b></div><div class="barrow"><span>OTIF سفارش</span><div class="track"><div class="fill" style="width:73%"></div></div><b>73%</b></div><div class="barrow"><span>kWh / m² کنترل‌شده</span><div class="track"><div class="fill" style="width:61%"></div></div><b>61%</b></div></div></div>
+  </div>
+</section>
+
+<section class="slide" data-title="اولویت‌بندی" data-subtitle="Impact × Readiness">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--violet)">AI Opportunity Prioritizer</div><h2>قرار نیست ۸ پروژه بفروشیم؛ اولویت را با ارزش و آمادگی داده تعیین می‌کنیم.</h2><p class="lead">هر Use Case باید همزمان اثر مالی، دسترسی داده، پیچیدگی اجرا، زمان رسیدن به ارزش و ریسک سازمانی داشته باشد. خروجی Discovery، انتخاب یک یا دو پایلوت محدود است.</p></div><span class="pagechip">صفحه 04 · Prioritization</span></div>
+  <div class="grid g2">
+    <div class="matrix">
+      <div class="axisx"></div><div class="axisy"></div>
+      <div class="quad q1">اثر مالی بالا / آمادگی بالا</div><div class="quad q2">اثر بالا / پیچیدگی بیشتر</div><div class="quad q3">شروع ساده / اثر محدودتر</div><div class="quad q4">بعداً بررسی شود</div>
+      <div class="bubble b-demand" onclick="openCase('demand')">Demand + Inventory<b>Best candidate</b></div>
+      <div class="bubble b-margin" onclick="openCase('margin')">Margin AI<b>Fast insight</b></div>
+      <div class="bubble b-sales" onclick="openCase('sales')">Sales Copilot<b>CRM-ready</b></div>
+      <div class="bubble b-quality" onclick="openCase('quality')">Vision Quality<b>Floor pilot</b></div>
+      <div class="bubble b-maint" onclick="openCase('maintenance')">Machine Health<b>Sensor-led</b></div>
+      <div class="bubble b-cash" onclick="openCase('cash')">Cashflow AI<b>Finance-led</b></div>
+      <div class="bubble b-energy" onclick="openCase('energy')">Energy AI<b>Meter dependent</b></div>
+      <div class="bubble b-knowledge" onclick="openCase('knowledge')">Factory Memory<b>Enablement</b></div>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="badge pilot">پیشنهاد پایلوت اول</span><h3>Profit + Demand Control Tower</h3><p>اگر داده فروش/موجودی/قیمت موجود باشد، این مسیر سریع‌ترین شفافیت مالی را ایجاد می‌کند و به برنامه تولید و فروش وصل می‌شود.</p></div>
+      <div class="card"><span class="badge pilot">پایلوت کف کارخانه</span><h3>Vision Quality یا Machine Health</h3><p>اگر زیان اصلی از ضایعات یا توقف ماشین باشد، پایلوت فنی در یک نقطه محدود تعریف می‌شود؛ نه تجهیز کل کارخانه از روز اول.</p></div>
+      <div class="card"><span class="badge scenario">Gate تصمیم</span><h3>Scale / Pivot / Stop</h3><p>هر پایلوت فقط زمانی گسترش می‌یابد که KPI، داده و مالک اقدام روشن باشند.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="Workstreams" data-subtitle="Not a fixed sequence">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--violet)">Workstreams, Not Fixed Steps</div><h2>این‌ها مسیرهای کاری هستند؛ ترتیب اجرا بعد از Discovery تعیین می‌شود.</h2><p class="lead">ممکن است در یک کارخانه Demand بهترین شروع باشد و در کارخانه‌ای دیگر Quality یا Machine Health. این بخش نشان می‌دهد هر مسیر چه می‌خواهد و چه خروجی می‌دهد.</p></div><span class="pagechip">صفحه 05 · Workstreams</span></div>
+  <div class="step-tabs">
+    <div class="tabs" id="tabs"></div>
+    <div class="card" id="tabPanel"></div>
+  </div>
+</section>
+
+<section class="slide" data-title="شبیه‌ساز مالی" data-subtitle="Value-at-Stake Simulator">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--teal)">Financially Defensible Simulator</div><h2>AI Factory Rescue Simulator: مدل مالی شفاف، نه وعده قطعی.</h2><p class="lead">این شبیه‌ساز «Value-at-Stake» را نشان می‌دهد. هر عدد به‌عنوان سناریو قابل تغییر است و اثر P&L از آزادسازی Cash جدا شده تا Double Counting کاهش یابد.</p></div><span class="pagechip">صفحه 06 · Value-at-Stake</span></div>
+  <div class="fin-grid">
+    <div class="controls">
+      <div class="control"><label><span>فروش ماهانه</span><b><span id="vSales">45</span>B تومان</b></label><input id="sales" type="range" min="15" max="120" value="45" oninput="calc()"></div>
+      <div class="control"><label><span>حاشیه عملیاتی فعلی</span><b><span id="vMargin">-6</span>%</b></label><input id="margin" type="range" min="-18" max="8" value="-6" oninput="calc()"></div>
+      <div class="control"><label><span>هزینه ضایعات نسبت به فروش</span><b><span id="vWasteBase">4</span>%</b></label><input id="wasteBase" type="range" min="1" max="12" value="4" oninput="calc()"></div>
+      <div class="control"><label><span>توقف ناخواسته / ماه</span><b><span id="vDownHours">48</span> ساعت</b></label><input id="downHours" type="range" min="5" max="140" value="48" oninput="calc()"></div>
+      <div class="control"><label><span>ارزش هر ساعت توقف</span><b><span id="vDownValue">35</span>M تومان</b></label><input id="downValue" type="range" min="5" max="120" value="35" oninput="calc()"></div>
+      <div class="control"><label><span>موجودی کندگردش</span><b><span id="vInventory">24</span>B تومان</b></label><input id="inventory" type="range" min="5" max="80" value="24" oninput="calc()"></div>
+      <hr style="border-color:rgba(255,255,255,.08);width:100%">
+      <div class="control"><label><span>Margin Recovery</span><b><span id="vMr">2.0</span>pp</b></label><input id="mr" type="range" min="0" max="6" step=".1" value="2" oninput="calc()"></div>
+      <div class="control"><label><span>Waste Reduction</span><b><span id="vWr">18</span>%</b></label><input id="wr" type="range" min="0" max="45" value="18" oninput="calc()"></div>
+      <div class="control"><label><span>Downtime Reduction</span><b><span id="vDr">14</span>%</b></label><input id="dr" type="range" min="0" max="35" value="14" oninput="calc()"></div>
+      <div class="control"><label><span>Inventory Reduction</span><b><span id="vIr">12</span>%</b></label><input id="ir" type="range" min="0" max="30" value="12" oninput="calc()"></div>
+      <div class="control"><label><span>Realization Factor</span><b><span id="vRf">65</span>%</b></label><input id="rf" type="range" min="30" max="90" value="65" oninput="calc()"></div>
+    </div>
+    <div>
+      <div class="result-grid">
+        <div class="result"><span>زیان ماهانه قبل از مداخله</span><b id="lossNow">2.70B</b><small class="badge scenario">Current scenario</small></div>
+        <div class="result"><span>اثر P&L قابل دفاع</span><b id="pnlImpact">0.00B</b><small class="badge scenario">Value at stake</small></div>
+        <div class="result"><span>Cash آزادشده از موجودی</span><b id="cashRelease">0.00B</b><small class="badge scenario">Balance-sheet impact</small></div>
+        <div class="result"><span>Payback Readiness</span><b id="payback">Medium</b><small class="badge pilot">Pilot dependent</small></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="kicker" style="font-size:11px">Value Components</div>
+        <div class="barlist" style="margin-top:10px">
+          <div class="barrow"><span>Margin recovery</span><div class="track"><div class="fill" id="barMargin"></div></div><b id="rMargin">0</b></div>
+          <div class="barrow"><span>Waste saving</span><div class="track"><div class="fill" id="barWaste"></div></div><b id="rWaste">0</b></div>
+          <div class="barrow"><span>Downtime saving</span><div class="track"><div class="fill" id="barDown"></div></div><b id="rDown">0</b></div>
+          <div class="barrow"><span>Inventory cash release</span><div class="track"><div class="fill" id="barInv"></div></div><b id="rInv">0</b></div>
+        </div>
+      </div>
+      <div class="formula">
+        <div class="card"><h4>P&L Formula</h4><code>Margin = Sales × MarginRecovery(pp) × RF<br/>Waste = Sales × WasteBase × WasteReduction × RF<br/>Downtime = Hours × ValuePerHour × DowntimeReduction × RF<br/>P&L Impact = Margin + Waste + Downtime</code></div>
+        <div class="card"><h4>Cash Formula</h4><code>Cash Release = SlowInventory × InventoryReduction<br/>Cash Release is reported separately and is not added to P&L impact.<br/>All results are scenario estimates until calibrated with baseline data.</code></div>
+      </div>
+      <div class="flow" style="margin-top:12px">
+        <div class="card"><h3>Baseline</h3><p>فروش، حاشیه، ضایعات، توقف، موجودی</p></div><div class="arrow"></div>
+        <div class="card"><h3>AI Levers</h3><p>Margin، Waste، Downtime، Inventory</p></div><div class="arrow"></div>
+        <div class="card"><h3>Executive Output</h3><p>اثر P&L جدا از Cash و با فرض تحقق‌پذیری</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title="داده و همکاری" data-subtitle="Data & Collaboration Readiness">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--amber)">Data & Collaboration Readiness</div><h2>برای شروع پایلوت از چه داده‌ها و همکاری‌هایی استفاده می‌کنیم؟</h2><p class="lead">لازم نیست کارخانه از ابتدا کاملاً دیجیتال باشد. برای هر Workstream حداقل داده لازم، افراد لازم و خروجی هفته اول روشن می‌شود.</p></div><span class="pagechip">صفحه 07 · Readiness</span></div>
+  <div class="grid g3">
+    <div class="card"><span class="badge">Profit / Margin</span><h3>داده لازم</h3><ul><li>فروش ۱۲ تا ۲۴ ماه</li><li>قیمت، تخفیف، مرجوعی</li><li>BOM و بهای مواد</li><li>هزینه حمل/توزیع تقریبی</li></ul><p>خروجی هفته اول: نقشه سود واقعی SKU و مشتری.</p></div>
+    <div class="card"><span class="badge">Demand / Inventory</span><h3>داده لازم</h3><ul><li>فروش SKU-level</li><li>موجودی فعلی و Aging</li><li>Lead Time و حداقل بچ تولید</li><li>تقویم فصل، کمپین و کانال</li></ul><p>خروجی هفته اول: SKUهای پرریسک و کندگردش.</p></div>
+    <div class="card"><span class="badge">Quality / Waste</span><h3>داده لازم</h3><ul><li>تعریف ۱ تا ۳ عیب بحرانی</li><li>نقطه بروز عیب</li><li>نمونه تصویر یا تایید QC</li><li>هزینه ضایعات/دوباره‌کاری</li></ul><p>خروجی هفته اول: تعریف پایلوت Vision.</p></div>
+    <div class="card"><span class="badge">Machine Health</span><h3>داده لازم</h3><ul><li>فهرست ماشین‌های Bottleneck</li><li>لاگ خرابی و توقف</li><li>ساعات تولید و توقف</li><li>PLC / سنسور در صورت وجود</li></ul><p>خروجی هفته اول: انتخاب یک ماشین پایلوت.</p></div>
+    <div class="card"><span class="badge">CRM / Sales</span><h3>داده لازم</h3><ul><li>لیست مشتریان</li><li>فاکتورها و وصول‌ها</li><li>تماس/ویزیت در صورت وجود</li><li>قوانین تخفیف و فروش</li></ul><p>خروجی هفته اول: مشتریان در خطر ریزش و NBA اولیه.</p></div>
+    <div class="card"><span class="badge">Principle</span><h3>اصل شروع</h3><ul><li>حداقل داده کافی بهتر از انتظار برای داده کامل است.</li><li>هر پایلوت یک Owner و KPI دارد.</li><li>تصمیم‌های حساس با تایید انسانی اجرا می‌شوند.</li></ul><p>خروجی هفته اول: Loss Register و Pilot Charter.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-title="معماری و امنیت" data-subtitle="Architecture & Governance">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--blue)">Architecture & Governance</div><h2>این یک پوسته ChatGPT نیست؛ یک لایه تصمیم‌سازی صنعتی با کنترل داده است.</h2><p class="lead">برای اطلاعات مالی، مشتریان، ERP و ماشین‌آلات، امنیت و حاکمیت داده بخشی از طراحی است، نه ضمیمه بعدی.</p></div><span class="pagechip">صفحه 08 · Security</span></div>
+  <div class="arch">
+    <div class="node"><b>Data Sources</b><span>ERP / Excel / Accounting / CRM / PLC / Sensors / Cameras</span></div>
+    <div class="node"><b>Industrial Data Layer</b><span>Clean, map, join, validate, access control</span></div>
+    <div class="node"><b>Analytics & AI</b><span>BI rules, ML forecast, CV, optimization, GenAI copilot</span></div>
+    <div class="node"><b>Decision Layer</b><span>CEO cockpit, alerts, NBA, work orders</span></div>
+    <div class="node"><b>Human Approval</b><span>Override, audit log, measured feedback loop</span></div>
+  </div>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="card"><h3>Deployment Options</h3><ul><li>On-prem یا Hybrid بر اساس حساسیت داده</li><li>عدم ارسال داده محرمانه بدون تایید</li><li>Data minimization برای هر Use Case</li></ul></div>
+    <div class="card"><h3>Controls</h3><ul><li>Role-based access</li><li>Audit log تصمیم‌ها و Overrideها</li><li>Human-in-the-loop برای اقدام حساس</li></ul></div>
+    <div class="card"><h3>Model Risk</h3><ul><li>Confidence و علت پیشنهاد</li><li>Baseline و drift monitoring</li><li>Stop / Scale Gate در هر فاز</li></ul></div>
+  </div>
+</section>
+
+<section class="slide" data-title="شواهد و بنچمارک" data-subtitle="Evidence Basis">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--lime)">Evidence & Benchmark Basis</div><h2>اعداد پیشنهادی به‌عنوان Benchmark، Pilot Target یا Scenario تفکیک می‌شوند.</h2><p class="lead">هیچ درصدی پیش‌بینی قطعی برای کارخانه نیست. عدد مخصوص کارخانه بعد از Baseline و Calibration استخراج می‌شود.</p></div><span class="pagechip">صفحه 09 · Evidence</span></div>
+  <div class="grid g3">
+    <div class="card"><span class="badge bench">Industry Evidence</span><h3>Textile Demand Forecasting</h3><p>Fraunhofer IWU در ۲۰۲۶ برای تولیدکننده نساجی frottana/MÖVE ابزار AI demand forecasting معرفی کرد که 82.7٪ نوسانات فروش را توضیح داده است.</p><a href="https://www.iwu.fraunhofer.de/en/press/2026-ai-based-demand-forecasting-creates-planning-reliability-in-the-textile-industry.html" target="_blank">Fraunhofer IWU source</a></div>
+    <div class="card"><span class="badge bench">Cross-industry Benchmark</span><h3>Supply Chain Planning</h3><p>McKinsey نمونه‌هایی از بهبود 10–12٪ Forecast در سطح SKU، کاهش 6–8٪ موجودی کالای ساخته‌شده و افزایش 3–5٪ fill rate گزارش کرده است.</p><a href="https://www.mckinsey.com/capabilities/operations/our-insights/autonomous-supply-chain-planning-for-consumer-goods-companies" target="_blank">McKinsey supply chain source</a></div>
+    <div class="card"><span class="badge bench">Manufacturing Benchmark</span><h3>Predictive Maintenance</h3><p>McKinsey برای manufacturing analytics، Predictive Maintenance را به‌عنوان یکی از کاربردهای کاهش توقف و بهبود بهره‌وری معرفی می‌کند. اعداد فایل ما برای پایلوت به‌صورت محافظه‌کارانه تعریف می‌شود.</p><a href="https://www.mckinsey.com/capabilities/operations/our-insights/manufacturing-analytics-unleashes-productivity-and-profitability" target="_blank">McKinsey manufacturing source</a></div>
+    <div class="card"><span class="badge bench">Quality AI</span><h3>AI Quality Inspection</h3><p>WEF در نمونه‌های صنعتی ۲۰۲۶ از AI workflow بهبودهایی مانند full AI quality inspection coverage و کاهش 30.4٪ first-pass yield losses گزارش کرده است؛ این عدد مستقیماً به کارخانه هدف تعمیم داده نمی‌شود.</p><a href="https://www.weforum.org/stories/artificial-intelligence/ai-pilot-to-production-minds-cohort/" target="_blank">WEF source</a></div>
+    <div class="card"><span class="badge pilot">Pilot Target</span><h3>اعداد داخل فایل</h3><ul><li>Downtime reduction: هدف پایلوت، نه وعده قطعی</li><li>Waste reduction: وابسته به نقطه پایلوت</li><li>Inventory reduction: وابسته به data readiness</li></ul></div>
+    <div class="card"><span class="badge scenario">Scenario Assumption</span><h3>شبیه‌ساز مالی</h3><ul><li>برای تخمین Value-at-Stake</li><li>P&L و Cash جدا گزارش می‌شوند</li><li>بعد از Baseline با داده واقعی تنظیم می‌شود</li></ul></div>
+  </div>
+</section>
+
+<section class="slide" data-title="مسیر ۹۰ روزه" data-subtitle="Target Value Proof">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--violet)">Target 90-Day Value Proof</div><h2>۹۰ روز برای اثبات ارزش، نه دیجیتالی‌کردن کل کارخانه.</h2><p class="lead">دو مسیر جدا داریم: Data-led برای Margin/Demand/Sales و Factory-floor برای Vision/Machine Health. زمان هر مسیر به آمادگی داده و دسترسی فنی وابسته است.</p></div><span class="pagechip">صفحه 10 · Roadmap</span></div>
+  <div class="grid g4">
+    <div class="card"><span class="badge">Week 1–2</span><h3>Diagnostic</h3><ul><li>Loss Register</li><li>Data Readiness</li><li>Baseline KPI</li></ul><p>مثال: کشف ۱۲ SKU با حاشیه ضعیف یا یک ماشین Bottleneck.</p></div>
+    <div class="card"><span class="badge">Week 3–4</span><h3>Pilot Design</h3><ul><li>انتخاب Use Case</li><li>تعریف KPI و Owner</li><li>طراحی MVP</li></ul><p>مثال: Forecast روی ۲۰ SKU یا Vision روی یک عیب مشخص.</p></div>
+    <div class="card"><span class="badge">Week 5–8</span><h3>Pilot Run</h3><ul><li>Weekly review</li><li>Human feedback</li><li>Action tracking</li></ul><p>مثال: هر هفته تصمیم‌های تولید، فروش یا تعمیر ثبت و اثرشان سنجیده شود.</p></div>
+    <div class="card"><span class="badge">Week 9–12</span><h3>Value Proof</h3><ul><li>Before/After</li><li>ROI review</li><li>Scale/Pivot/Stop</li></ul><p>مثال: اگر موجودی راکد یا ضایعات کاهش یافت، Use Case گسترش می‌یابد.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h3>Data-led Pilot</h3><p>Margin AI، Demand Brain، Cashflow AI و Sales Copilot معمولاً با خروجی ERP/Excel/CRM قابل شروع هستند و ریسک اجرایی کمتری دارند.</p></div>
+    <div class="card"><h3>Factory-floor Pilot</h3><p>Vision Quality و Machine Health به نقطه پایلوت، سنسور/دوربین، همکاری تولید و تعریف دقیق رخداد نیاز دارند.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-title="سؤالات سخت" data-subtitle="Red-team readiness">
+  <div class="slidehead"><div><div class="kicker" style="color:var(--rose)">Red-team Readiness</div><h2>سؤال‌های سختی که احتمالاً می‌پرسند و پاسخ قابل دفاع</h2><p class="lead">این بخش کمک می‌کند فایل در برابر مدیر مالی، مدیر تولید و فرد فنی هم قابل دفاع بماند.</p></div><span class="pagechip">صفحه 11 · Q&A</span></div>
+  <div class="grid g2">
+    <div class="card"><h3>این درصدها از کجا آمده؟</h3><p>عددها Benchmark/Pilot Target/Scenario هستند، نه پیش‌بینی قطعی. عدد مخصوص کارخانه پس از Baseline داده واقعی تعیین می‌شود.</p></div>
+    <div class="card"><h3>کجایش AI است و کجایش BI؟</h3><p>محاسبات مالی deterministic است؛ AI در Forecast، anomaly detection، computer vision، optimization و recommendation استفاده می‌شود.</p></div>
+    <div class="card"><h3>اگر داده مرتب نداشته باشیم؟</h3><p>شروع با حداقل داده کافی انجام می‌شود؛ Data Readiness خود بخشی از Discovery است. برای بعضی Use Caseها اکسل هم کافی است.</p></div>
+    <div class="card"><h3>اطلاعات ما کجا می‌رود؟</h3><p>استقرار On-prem/Hybrid، حداقل‌سازی داده، کنترل دسترسی، Audit log و عدم ارسال داده حساس بدون تایید بخشی از طرح است.</p></div>
+    <div class="card"><h3>اگر مدل اشتباه پیشنهاد بدهد؟</h3><p>اقدام حساس بدون تایید انسانی انجام نمی‌شود. Confidence، دلیل پیشنهاد و Override ثبت می‌شود.</p></div>
+    <div class="card"><h3>اول کدام پروژه شروع می‌شود؟</h3><p>بر اساس Impact × Readiness × Feasibility. هدف فروش ۸ پروژه نیست؛ انتخاب بهترین پایلوت است.</p></div>
+  </div>
+</section>
+
+<section class="slide" data-title="تصمیم پیشنهادی" data-subtitle="Next Decision">
+  <div class="slidehead"><div><div class="kicker">Next Decision</div><h2>پیشنهاد شروع: Discovery کوتاه برای انتخاب پایلوت با بیشترین ارزش و کمترین ریسک.</h2><p class="lead">خروجی Discovery، فایل تصمیم است: Loss Register، Data Readiness، اولویت Use Caseها، Baseline KPI، مدل مالی اولیه و Pilot Charter.</p></div><span class="pagechip">صفحه 12 · Closing</span></div>
+  <div class="grid g3">
+    <div class="card"><span class="badge">Output 1</span><h3>AI Opportunity & Loss Register</h3><p>فهرست نقاط نشت سود، داده لازم، KPI، ارزش تخمینی و ریسک اجرا.</p></div>
+    <div class="card"><span class="badge">Output 2</span><h3>Pilot Charter</h3><p>دامنه پایلوت، Owner، داده، خروجی، Timeline، Gate و معیار Stop/Scale.</p></div>
+    <div class="card"><span class="badge">Output 3</span><h3>Defensible ROI Model</h3><p>مدل Value-at-Stake با فرضیات قابل مشاهده، اهرم‌های واقعی و جداسازی P&L از Cash.</p></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>جمع‌بندی مدیریتی</h3><p>هدف اجرای AI در کل کارخانه از روز اول نیست. هدف این است که در کوتاه‌ترین مسیر، بیشترین نشت سود قابل بازیابی را پیدا کنیم، یک پایلوت محدود تعریف کنیم، اثر واقعی را بسنجیم و فقط در صورت اثبات ارزش، Scale کنیم.</p></div>
+</section>
+
+  </div>
+  <div class="scrollhint" id="scrollHint">ادامه محتوا با اسکرول</div>
+  <div class="footer-nav"><button onclick="prevSlide()">قبلی</button><div class="hint">← / → برای جابه‌جایی · PageDown برای اسکرول یا اسلاید بعد</div><button onclick="nextSlide()">بعدی</button></div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modal-card" id="modalCard"><button class="close" onclick="closeCase()">×</button><div id="modalContent"></div></div></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')], menu=document.getElementById('menu'), progress=document.getElementById('progress'), pageText=document.getElementById('pageText'), scrollHint=document.getElementById('scrollHint');
+let current=0;
+slides.forEach((s,i)=>{const b=document.createElement('button');b.className='navbtn'+(i===0?' active':'');b.innerHTML=`<span class="num">${String(i+1).padStart(2,'0')}</span><span><b>${s.dataset.title}</b><span>${s.dataset.subtitle}</span></span>`;b.onclick=()=>go(i);menu.appendChild(b);s.addEventListener('scroll',updateScrollHint);});
+function updateScrollHint(){const s=slides[current]; if(!s) return; const more=s.scrollTop+s.clientHeight < s.scrollHeight-8; scrollHint.style.display=more?'block':'none';}
+function go(i){current=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,j)=>{s.classList.toggle('active',j===current); if(j===current) s.scrollTop=0;});[...menu.children].forEach((b,j)=>b.classList.toggle('active',j===current));progress.style.width=((current+1)/slides.length*100)+'%';pageText.textContent=`صفحه ${String(current+1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;setTimeout(updateScrollHint,80);}
+function nextSlide(){go(current+1)} function prevSlide(){go(current-1)}
+document.addEventListener('keydown',e=>{const m=document.getElementById('modal'); if(m.classList.contains('open')){if(e.key==='Escape')closeCase(); return} const s=slides[current]; if(e.key==='ArrowLeft')nextSlide(); if(e.key==='ArrowRight')prevSlide(); if(['PageDown',' '].includes(e.key)){ if(s.scrollTop+s.clientHeight < s.scrollHeight-8){s.scrollBy({top:s.clientHeight*.72,behavior:'smooth'});} else nextSlide(); e.preventDefault();} if(e.key==='PageUp'){ if(s.scrollTop>8){s.scrollBy({top:-s.clientHeight*.72,behavior:'smooth'});} else prevSlide(); e.preventDefault();}});
+const tabData=[
+ ['Profit & Margin','+1.5 تا +4pp','AI سود واقعی SKU/مشتری/سفارش را می‌سازد و قبل از تخفیف یا پذیرش سفارش کم‌حاشیه هشدار می‌دهد.','فروش، قیمت، تخفیف، مرجوعی، BOM، هزینه مواد، هزینه حمل/توزیع.','جدول سود واقعی، SKUهای زیان‌ده، Guardrail قیمت و تخفیف.'],
+ ['Demand & Inventory','8 تا 20٪ Cash release','Forecast طرح/رنگ/سایز/منطقه و پیشنهاد اصلاح تولید و Safety Stock.','فروش SKU-level، موجودی، Lead Time، حداقل بچ، فصل و کمپین.','Forecast با بازه اطمینان، موجودی کندگردش، پیشنهاد تولید.'],
+ ['Quality & Waste','15 تا 35٪ Pilot target','Vision عیب را نزدیک محل ایجاد تشخیص می‌دهد و به ماشین/شیفت/مواد وصل می‌کند.','تعریف عیب، نقطه پایلوت، نمونه تصویر، همکاری QC.','هشدار عیب، تصویر شاهد، ریشه‌یابی و کاهش ضایعات.'],
+ ['Machine Health','10 تا 25٪ Pilot target','ریسک پیش‌خرابی و پنجره سرویس ماشین Bottleneck را نشان می‌دهد.','لاگ خرابی، توقف، ماشین‌های بحرانی، سنسور/PLC در صورت وجود.','Health score، هشدار پیش‌خرابی، Work order اولویت‌دار.'],
+ ['CRM & Sales','5 تا 12٪ Pilot target','Next Best Action برای فروشنده و هشدار ریزش مشتری می‌سازد.','لیست مشتریان، فاکتورها، وصول‌ها، تماس/ویزیت و قوانین تخفیف.','لیست اقدام روزانه، پیشنهاد محصول، مشتریان در خطر ریزش.'],
+ ['Cashflow','8 تا 20٪ Cash release','تولید، خرید، وصول و موجودی را از منظر سود + نقدینگی می‌سنجد.','دریافتنی/پرداختنی، برنامه تولید/خرید، موجودی مواد و کالا.','Cash gap، اولویت وصول، تصمیم تولید/خرید کم‌ریسک‌تر.']
+];
+const tabs=document.getElementById('tabs'), panel=document.getElementById('tabPanel');
+tabData.forEach((t,i)=>{const b=document.createElement('button');b.className='tab'+(i===0?' active':'');b.innerHTML=`<b>${t[0]}</b><span>${t[1]}</span>`;b.onclick=()=>selectTab(i);tabs.appendChild(b);});
+function selectTab(i){[...tabs.children].forEach((b,j)=>b.classList.toggle('active',j===i)); const t=tabData[i]; panel.innerHTML=`<span class="badge pilot">Workstream · ترتیب اجرا بعد از Discovery تعیین می‌شود</span><h3 style="font-size:27px">${t[0]}</h3><div class="grid g3"><div class="card"><h3>AI چه می‌کند؟</h3><p>${t[2]}</p></div><div class="card"><h3>کارخانه چه می‌دهد؟</h3><p>${t[3]}</p></div><div class="card"><h3>خروجی مدیر</h3><p>${t[4]}</p></div></div><div class="pillset"><span class="badge pilot">${t[1]}</span><span class="badge scenario">نیازمند Baseline کارخانه</span><span class="badge">Human-approved action</span></div>`;}
+selectTab(0);
+
+const viz={
+ line:`<svg class="viz-svg" viewBox="0 0 600 240"><g stroke="rgba(255,255,255,.07)"><line x1="30" y1="55" x2="570" y2="55"/><line x1="30" y1="115" x2="570" y2="115"/><line x1="30" y1="175" x2="570" y2="175"/></g><path d="M30 180 C95 152,130 102,190 124 S300 190,360 122 S470 105,570 70" fill="none" stroke="#58dfff" stroke-width="4"/><path d="M30 195 C110 185,160 166,220 160 S330 150,400 130 S500 110,570 120" fill="none" stroke="#ffc66d" stroke-width="4" stroke-dasharray="10 8"/></svg>`,
+ vision:`<svg class="viz-svg" viewBox="0 0 600 240"><rect x="80" y="56" width="440" height="130" rx="22" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.09)"/><path d="M90 122 H510" stroke="#58dfff" stroke-width="3"><animate attributeName="stroke-dasharray" values="0 500;500 0;0 500" dur="4s" repeatCount="indefinite"/></path><circle cx="235" cy="110" r="13" fill="#ff8198"/><circle cx="385" cy="135" r="17" fill="#ff8198" opacity=".75"/><rect x="180" y="78" width="128" height="84" rx="16" stroke="#62e6ca" fill="none" stroke-width="3" stroke-dasharray="8 7"/></svg>`,
+ wave:`<svg class="viz-svg" viewBox="0 0 600 240"><path d="M30 130 C80 80,120 180,170 130 S260 80,310 130 S400 180,450 130 S540 80,580 130" fill="none" stroke="#ffc66d" stroke-width="4"/><path d="M30 150 C80 120,120 170,170 150 S260 120,310 150 S400 170,450 150 S540 120,580 150" fill="none" stroke="#58dfff" stroke-width="3" stroke-dasharray="8 8"/><circle cx="445" cy="130" r="16" fill="#ff8198"/></svg>`,
+ network:`<svg class="viz-svg" viewBox="0 0 600 240"><g stroke="#ad95ff" stroke-opacity=".55"><line x1="120" y1="70" x2="300" y2="120"/><line x1="300" y1="120" x2="480" y2="80"/><line x1="300" y1="120" x2="450" y2="190"/><line x1="300" y1="120" x2="130" y2="188"/></g><g fill="#ad95ff"><circle cx="120" cy="70" r="10"/><circle cx="300" cy="120" r="14"/><circle cx="480" cy="80" r="9"/><circle cx="450" cy="190" r="9"/><circle cx="130" cy="188" r="9"/></g></svg>`
+};
+const cases={
+ sales:{ey:'CRM & SALES COPILOT',title:'فروش و CRM هوشمند',desc:'AI هر روز برای تیم فروش «لیست اقدام» می‌سازد: کدام مشتری، چه محصول، چه زمان و با چه سطح تخفیف مجاز.',v:'line',ai:['محاسبه احتمال خرید، ریزش و Cross-sell','ساخت Next Best Action برای فروشنده','پیشنهاد محصول و کنترل تخفیف بر اساس Margin'],need:['لیست مشتریان، سفارش‌ها و وصول‌ها','تاریخچه تماس/ویزیت در صورت وجود','قوانین تخفیف و سیاست فروش'],out:['لیست اقدام روزانه','مشتریان در خطر ریزش','پیشنهاد محصول و تخفیف مجاز'],risk:['بدون ثبت نتیجه تماس، مدل یاد نمی‌گیرد','تخفیف باید با Margin Guardrail کنترل شود'],impact:[['5–12٪','Pilot target رشد فروش تکراری'],['8–15٪','Pilot target کاهش ریزش']]},
+ demand:{ey:'DEMAND & INVENTORY AI',title:'پیش‌بینی تقاضا و کنترل موجودی',desc:'Forecast طرح/رنگ/سایز را به برنامه تولید، حداقل بچ و موجودی کندگردش وصل می‌کند.',v:'line',ai:['Forecast در سطح SKU / طرح / رنگ / سایز','پیشنهاد کاهش یا افزایش تولید','پیشنهاد Safety Stock پویا'],need:['فروش SKU-level','موجودی و Aging','Lead time، حداقل بچ و فصل‌ها'],out:['Forecast با بازه اطمینان','SKUهای کندگردش','برنامه اصلاح تولید'],risk:['داده SKU باید قابل نگاشت باشد','نظر تیم فروش باید در مدل لحاظ شود'],impact:[['8–20٪','Scenario cash release'],['10–18pt','Pilot target بهبود Forecast']]},
+ quality:{ey:'VISION QUALITY AI',title:'تشخیص زودهنگام عیب و کاهش ضایعات',desc:'عیب در نقطه نزدیک به ایجاد تشخیص داده می‌شود و به ماشین، شیفت، مواد یا اپراتور وصل می‌شود.',v:'vision',ai:['تشخیص عیب از تصویر یا الگو','ذخیره تصویر شاهد','اتصال رخداد به علت عملیاتی'],need:['تعریف عیب بحرانی','نقطه پایلوت و نور/دوربین مناسب','همکاری QC برای برچسب‌گذاری'],out:['هشدار عیب','آرشیو evidence','گزارش ریشه‌یابی'],risk:['بدون تعریف دقیق عیب، پایلوت مبهم می‌شود','KPI باید هزینه جلوگیری‌شده باشد، نه صرفاً accuracy'],impact:[['15–35٪','Pilot target کاهش ضایعات'],['3–8pt','Pilot target First Quality']]},
+ maintenance:{ey:'MACHINE HEALTH AI',title:'ریسک پیش‌خرابی ماشین و کاهش توقف',desc:'سیستم ریسک خرابی و پنجره سرویس را برای ماشین‌های Bottleneck نشان می‌دهد؛ نه اینکه خرابی را قطعی پیشگویی کند.',v:'wave',ai:['ساخت baseline رفتار سالم ماشین','تشخیص drift و anomaly','پیشنهاد پنجره بررسی یا سرویس'],need:['لاگ خرابی و توقف','فهرست ماشین‌های بحرانی','سنسور/PLC یا ثبت دستی منظم'],out:['Health score','هشدار پیش‌خرابی','Work order اولویت‌دار'],risk:['بدون داده توقف، اثر قابل اندازه‌گیری نیست','شروع باید محدود به Bottleneck باشد'],impact:[['10–25٪','Pilot target کاهش downtime'],['2–6٪','Scenario افزایش تولید مؤثر']]},
+ margin:{ey:'MARGIN INTELLIGENCE',title:'سود واقعی SKU، مشتری و سفارش',desc:'محاسبات مالی deterministic باقی می‌ماند؛ AI و Analytics در anomaly، پیشنهاد اقدام و guardrail وارد می‌شوند.',v:'line',ai:['محاسبه Contribution Margin / m²','کشف SKU یا مشتری کم‌حاشیه','Guardrail قبل از تخفیف یا پذیرش سفارش'],need:['فروش، قیمت، تخفیف، مرجوعی','BOM، بهای مواد و هزینه‌های اصلی','اطلاعات دوباره‌کاری و حمل'],out:['رتبه‌بندی سود واقعی','هشدار سفارش کم‌حاشیه','P&L bridge'],risk:['تعریف سود باید بین مالی و فروش مشترک شود','داده هزینه‌ها باید حداقل قابل تخمین باشد'],impact:[['+1.5 تا +4pp','Pilot target بهبود حاشیه'],['Fast insight','شروع با داده موجود']]},
+ cash:{ey:'CASHFLOW AI',title:'مدیریت همزمان سود و نقدینگی',desc:'تولید، خرید، وصول و موجودی را از منظر سود و نقدینگی رتبه‌بندی می‌کند.',v:'line',ai:['Forecast نقدینگی ۱۳ هفته‌ای','سناریوی تاخیر وصول یا رشد خرید','اولویت تولید/خرید بر اساس Cash + Margin'],need:['دریافتنی/پرداختنی','برنامه تولید و خرید','موجودی مواد و کالا'],out:['Cash Gap','اولویت وصول','تصمیم تولید کم‌ریسک‌تر'],risk:['ثبت سررسیدها باید دقیق باشد','اثر Cash از P&L جدا گزارش می‌شود'],impact:[['8–20٪','Scenario آزادسازی سرمایه'],['5–15 روز','Scenario بهبود چرخه نقد']]},
+ energy:{ey:'ENERGY INTELLIGENCE',title:'مصرف انرژی نسبت به تولید مؤثر',desc:'مصرف برق و انرژی را به وضعیت ماشین، شیفت، idle time و kWh/m² وصل می‌کند.',v:'wave',ai:['تحلیل kWh/m²','تشخیص Idle loss و مصرف غیرعادی','پیشنهاد تنظیم Schedule یا Setpoint'],need:['گزارش مصرف یا sub-meter','وضعیت ماشین/شیفت','برنامه تولید'],out:['نقشه اتلاف انرژی','هشدار مصرف غیرعادی','KPI انرژی قابل اقدام'],risk:['بدون تفکیک مصرف، ریشه‌یابی محدود می‌شود','مصرف باید به حالت عملیاتی وصل شود'],impact:[['5–12٪','Scenario کاهش مصرف قابل کنترل'],['kWh/m²','KPI صنعتی']]},
+ knowledge:{ey:'FACTORY MEMORY',title:'حافظه عملیاتی کارخانه',desc:'تجربه اپراتورها، تعمیرکارها، فروشندگان و مدیران به دانش قابل جست‌وجو و قابل استفاده تبدیل می‌شود.',v:'network',ai:['ساختاردهی وویس، گزارش، فایل و تجربه','بازیابی رخداد مشابه و راهکار قبلی','تولید Playbook زنده برای تیم'],need:['گزارش‌ها، فایل‌ها، صوت و تجربه افراد','تعریف موضوع/ماشین/علت/اقدام','مالکیت محتوا و سطح دسترسی'],out:['دانش قابل جست‌وجو','Playbook رخدادها','کاهش وابستگی به افراد'],risk:['بدون عادت ثبت دانش، حافظه زنده نمی‌ماند','سطح دسترسی باید از ابتدا مشخص شود'],impact:[['Faster response','حل سریع‌تر رخداد تکراری'],['Lower dependency','وابستگی کمتر به افراد کلیدی']]}
+};
+function openCase(k){const c=cases[k]; const modal=document.getElementById('modal'), card=document.getElementById('modalCard'); document.getElementById('modalContent').innerHTML=`<div class="modal-head"><div><div class="kicker">${c.ey}</div><h2>${c.title}</h2><p class="lead">${c.desc}</p><div class="pillset">${c.impact.map(x=>`<span class="badge pilot"><b>${x[0]}</b> ${x[1]}</span>`).join('')}</div></div><div class="modal-viz">${viz[c.v]}</div></div><div class="modal-grid"><div class="modal-section"><h4>AI چه می‌کند؟</h4><ul>${c.ai.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="modal-section"><h4>کارخانه چه داده‌ای می‌دهد؟</h4><ul>${c.need.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="modal-section"><h4>خروجی مدیریتی</h4><ul>${c.out.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="modal-section"><h4>ریسک و شرط موفقیت</h4><ul>${c.risk.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`; modal.classList.add('open'); setTimeout(()=>{card.scrollTop=0},0);}
+function closeCase(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeCase();});
+function calc(){
+ const sales=+document.getElementById('sales').value, margin=+document.getElementById('margin').value, wasteBase=+document.getElementById('wasteBase').value, downHours=+document.getElementById('downHours').value, downValue=+document.getElementById('downValue').value, inventory=+document.getElementById('inventory').value, mr=+document.getElementById('mr').value, wr=+document.getElementById('wr').value, dr=+document.getElementById('dr').value, ir=+document.getElementById('ir').value, rf=+document.getElementById('rf').value/100;
+ [['vSales',sales],['vMargin',margin],['vWasteBase',wasteBase],['vDownHours',downHours],['vDownValue',downValue],['vInventory',inventory],['vMr',mr.toFixed(1)],['vWr',wr],['vDr',dr],['vIr',ir],['vRf',Math.round(rf*100)]].forEach(([id,v])=>document.getElementById(id).textContent=v);
+ const loss=Math.max(0,sales*(-margin/100));
+ const marginImpact=sales*(mr/100)*rf;
+ const wasteImpact=sales*(wasteBase/100)*(wr/100)*rf;
+ const downImpact=(downHours*downValue/1000)*(dr/100)*rf;
+ const cashRelease=inventory*(ir/100);
+ const pnl=marginImpact+wasteImpact+downImpact;
+ document.getElementById('lossNow').textContent=loss.toFixed(2)+'B';
+ document.getElementById('pnlImpact').textContent=pnl.toFixed(2)+'B';
+ document.getElementById('cashRelease').textContent=cashRelease.toFixed(2)+'B';
+ document.getElementById('payback').textContent=pnl>2.5?'High':pnl>1?'Medium':'Low';
+ const max=Math.max(marginImpact,wasteImpact,downImpact,cashRelease,.01);
+ [['barMargin','rMargin',marginImpact],['barWaste','rWaste',wasteImpact],['barDown','rDown',downImpact],['barInv','rInv',cashRelease]].forEach(([bar,txt,val])=>{document.getElementById(bar).style.width=Math.max(4,Math.min(100,val/max*100))+'%';document.getElementById(txt).textContent=val.toFixed(2)+'B';});
+}
+go(0);calc();
+window.addEventListener('resize',updateScrollHint);
+</script>
+</body>
+</html>
